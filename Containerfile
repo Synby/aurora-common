@@ -1,45 +1,41 @@
+
 FROM docker.io/library/alpine:latest AS builder
 
-RUN apk add curl jq zstd tar
 
+RUN apk add --no-cache curl jq zstd tar
 ENV URL="https://api.github.com/repos/ublue-os/artwork/releases"
 
+
 RUN sh <<'EOF'
-# tagged with date of aurora-wallpaper creation
 set -xeuo pipefail
+
+# Use jq to find the download URL for the latest aurora-wallpapers.tar.zstd asset
 TARBALL=$(curl -s ${URL} | jq -r 'first(.[] | .assets[]? | select(.name == "aurora-wallpapers.tar.zstd") .browser_download_url)')
 
-curl -L $TARBALL -o /tmp/aurora-wallpapers.tar.zstd
-EOF
+# Download the compressed file
+curl -L "$TARBALL" -o /tmp/aurora-wallpapers.tar.zstd
 
-RUN sh <<'EOF'
+# --- EXTRACT AND STRUCTURE ---
 mkdir -p /output/
 mkdir -p /tmp/aurora-wallpapers
+# Extract the archive contents into the temporary folder
 tar -xvf /tmp/aurora-wallpapers.tar.zstd -C /tmp/aurora-wallpapers
 
 cd /tmp/aurora-wallpapers
-# We don't need gnome metadata
 rm -rf kde/*/gnome-background-properties/
-
-mkdir -p /output/usr/share/backgrounds
 mkdir -p /output/usr/share/wallpapers
-mv /tmp/aurora-wallpapers/kde/ /output/usr/share/backgrounds/aurora/
+mkdir -p /output/usr/share/backgrounds
+mv kde/ /output/usr/share/backgrounds/aurora/
 
-# make relative symlinks so wallpapers are actually in
-# /usr/share/backgrounds/aurora/name1 but accessible also accesible
-# in /usr/share/wallpapers/name1
+# --- CREATE SYMLINKS ---
+# This step creates relative symlinks from the generic 'wallpapers' directory
+# to the 'backgrounds/aurora' directories for compatibility.
 cd /output/usr/share/backgrounds
-for dir in ../backgrounds/aurora/*; do
-  ln -s "${dir}" ../wallpapers/
+for dir in aurora/*; do
+  # Symlink: /output/usr/share/wallpapers/{dir_name} -> ../backgrounds/aurora/{dir_name}
+  ln -s "../backgrounds/${dir}" ../wallpapers/
 done
-
-# FIXME
-# symlink the deleted AI slop with it's replacement
-#cd /output/usr/share
-#ln -s backgrounds/aurora/aurora-wallpaper-6 ../backgrounds/aurora/aurora-wallpaper-1
-## same reason as above
-#ln -s backgrounds/aurora/aurora-wallpaper-1/ wallpapers/aurora-wallpaper-1
-
+rm -rf /tmp/aurora-wallpapers.tar.zstd /tmp/aurora-wallpapers
 EOF
 
 FROM scratch AS ctx
