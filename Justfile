@@ -15,7 +15,7 @@ check:
         {{ just }} --unstable --fmt --check -f Justfile
 
 # Fix the Just formatting
-ffix:
+fix:
     #!/usr/bin/bash
     find . -type f -name "*.just" | while read -r file; do
     	echo "Checking syntax: $file"
