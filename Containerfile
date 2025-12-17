@@ -13,7 +13,7 @@ RUN set -xeuo pipefail && \
     for dir in aurora/*; do \
       ln -sr "/output/usr/share/backgrounds/${dir}" /output/usr/share/wallpapers/; \
     done && \
-    ln -sr /output/usr/share/backgrounds/aurora/aurowa-wallpaper-6/ /output/usr/share/backgrounds/aurora/aurora-wallpaper-1 && \
+    ln -sr /output/usr/share/backgrounds/aurora/aurora-wallpaper-6/ /output/usr/share/backgrounds/aurora/aurora-wallpaper-1 && \
     ln -sr /output/usr/share/backgrounds/aurora/aurora-wallpaper-1/ /output/usr/share/wallpapers/ && \
     rm -rf /wallpapers
 
