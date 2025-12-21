@@ -34,7 +34,8 @@ benchmark:
 # Configure Aurora-CLI Terminal Experience with Brew
 [group('System')]
 aurora-cli:
-    @/usr/bin/ublue-bling
+    @ublue-bling
+    brew bundle --file=/usr/share/ublue-os/homebrew/cli.Brewfile
 
 # alias for install-fonts
 aurora-fonts:
