@@ -15,4 +15,4 @@ ${MOTD_TIP}
 - **󰊤** [Issues](https://github.com/ublue-os/aurora/issues)
 - **󰈙** [Documentation](https://docs.getaurora.dev/guides/basic-usage)
 - **󰊌** [Discuss](https://universal-blue.discourse.group/)
-- **󰙯** [Discord](https://discord.com/invite/WEu6BdFEtp)
+- **󰙯** [Discord](https://discord.getaurora.dev)
