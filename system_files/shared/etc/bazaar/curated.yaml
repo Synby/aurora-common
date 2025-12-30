@@ -190,7 +190,6 @@ rows:
             - com.spotify.Client
             - com.mastermindzh.tidal-hifi
             - org.videolan.VLC
-            - com.github.iwalton3.jellyfin-media-player
             - tv.plex.PlexDesktop
             - org.kde.kasts
             - org.kde.arianna
@@ -198,6 +197,7 @@ rows:
             - io.github.mhogomchungu.media-downloader
             - com.github.wwmm.easyeffects
             - me.timschneeberger.jdsp4linux
+            - org.jellyfin.JellyfinDesktop
 
   - sections:
     - expand-horizontally: true
