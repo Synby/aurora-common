@@ -104,7 +104,6 @@ css: |
 
   .dev-section app-tile-installed-pill {
     background-color: #cbabff;
-    color: var(--fg-color);
   }
 
   .dev-section-dark {
@@ -113,7 +112,6 @@ css: |
 
   .dev-section-dark app-tile-installed-pill {
     background-color: #084152;
-    color: var(--fg-color);
   }
 
   .ai-section {
