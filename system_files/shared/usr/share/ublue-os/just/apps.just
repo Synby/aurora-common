@@ -51,12 +51,11 @@ install-opentabletdriver:
 # Install applications from curated Brewfiles (includes full-desktop.Brewfile with GNOME Circle apps)
 bbrew:
     #!/usr/bin/env bash
+    set -eou pipefail
+    
     if ! command -v bbrew &>/dev/null ; then
         if gum confirm "Bold Brew is not installed, would you like to install it?" ; then
-            set -e
-            brew trust --tap Valkyrie00/homebrew-bbrew
-            brew install Valkyrie00/homebrew-bbrew/bbrew
-            set +e
+            brew install bbrew
         else
             exit 0
         fi
