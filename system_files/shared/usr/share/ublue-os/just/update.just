@@ -38,7 +38,9 @@ update:
     elif [[ "${IS_OSTREE}" == "true" ]]; then
       # Without password would be nice
       # https://github.com/bootc-dev/bootc/issues/409
-      STATUS=$(sudo bootc status --json | jq ".status")
+      # https://github.com/get-aurora-dev/common/issues/270
+      # bootc status can might prefix the output from `mount`
+      STATUS=$(sudo bootc status --json | sed -n '/^{/,$p' | jq ".status")
 
       STAGED_INCOMPAT=$(echo "${STATUS}" | jq ".staged.incompatible")
       BOOTED_INCOMPAT=$(echo "${STATUS}" | jq ".booted.incompatible")
