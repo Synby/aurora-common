@@ -6,7 +6,7 @@ on:
   workflow_dispatch:     # Allows manual testing via the Actions tab
 
 jobs:
-  Close issues without info:
+  Close-issues:
     runs-on: ubuntu-slim
     permissions:
       issues: write
